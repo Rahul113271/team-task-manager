@@ -16,16 +16,23 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post(
+      const res = await axios.post(
         "https://team-task-manager-igd6.onrender.com/api/auth/register",
         formData
       );
+
+      console.log(res.data);
 
       alert("Registration Successful");
 
       navigate("/");
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error);
+
+      alert(
+        error?.response?.data?.message ||
+          "Registration Failed"
+      );
     }
   };
 
@@ -38,8 +45,12 @@ function Register() {
           type="text"
           placeholder="Name"
           required
+          value={formData.name}
           onChange={(e) =>
-            setFormData({ ...formData, name: e.target.value })
+            setFormData({
+              ...formData,
+              name: e.target.value,
+            })
           }
         />
 
@@ -47,8 +58,12 @@ function Register() {
           type="email"
           placeholder="Email"
           required
+          value={formData.email}
           onChange={(e) =>
-            setFormData({ ...formData, email: e.target.value })
+            setFormData({
+              ...formData,
+              email: e.target.value,
+            })
           }
         />
 
@@ -56,14 +71,22 @@ function Register() {
           type="password"
           placeholder="Password"
           required
+          value={formData.password}
           onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
+            setFormData({
+              ...formData,
+              password: e.target.value,
+            })
           }
         />
 
         <select
+          value={formData.role}
           onChange={(e) =>
-            setFormData({ ...formData, role: e.target.value })
+            setFormData({
+              ...formData,
+              role: e.target.value,
+            })
           }
         >
           <option value="member">Member</option>
@@ -74,7 +97,8 @@ function Register() {
       </form>
 
       <p style={{ marginTop: "15px" }}>
-        Already have account? <Link to="/">Login</Link>
+        Already have account?{" "}
+        <Link to="/">Login</Link>
       </p>
     </div>
   );
