@@ -19,11 +19,19 @@ function Login() {
         formData
       );
 
+      console.log(res.data);
+
       localStorage.setItem("token", res.data.token);
+
+      alert("Login Successful");
 
       navigate("/dashboard");
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error);
+
+      alert(
+        error?.response?.data?.message || "Login Failed"
+      );
     }
   };
 
@@ -36,8 +44,12 @@ function Login() {
           type="email"
           placeholder="Email"
           required
+          value={formData.email}
           onChange={(e) =>
-            setFormData({ ...formData, email: e.target.value })
+            setFormData({
+              ...formData,
+              email: e.target.value,
+            })
           }
         />
 
@@ -45,8 +57,12 @@ function Login() {
           type="password"
           placeholder="Password"
           required
+          value={formData.password}
           onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
+            setFormData({
+              ...formData,
+              password: e.target.value,
+            })
           }
         />
 
@@ -54,7 +70,8 @@ function Login() {
       </form>
 
       <p style={{ marginTop: "15px" }}>
-        Don't have account? <Link to="/register">Register</Link>
+        Don't have account?{" "}
+        <Link to="/register">Register</Link>
       </p>
     </div>
   );
