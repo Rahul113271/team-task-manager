@@ -38,7 +38,7 @@ function Projects() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/projects",
+        "https://team-task-manager-igd6.onrender.com/api/projects",
         {
           title,
           description,

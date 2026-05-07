@@ -17,7 +17,7 @@ function Register() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://team-task-manager-igd6.onrender.com/api/auth/register",
         formData
       );
 

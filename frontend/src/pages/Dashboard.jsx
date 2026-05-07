@@ -16,7 +16,7 @@ function Dashboard() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/tasks",
+        "https://team-task-manager-igd6.onrender.com/api/tasks",
         {
           headers: {
             authorization: token,
