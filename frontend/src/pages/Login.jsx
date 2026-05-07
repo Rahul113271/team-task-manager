@@ -1,0 +1,63 @@
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+
+function Login() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData
+      );
+
+      localStorage.setItem("token", res.data.token);
+
+      navigate("/dashboard");
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1>Login</h1>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          required
+          onChange={(e) =>
+            setFormData({ ...formData, email: e.target.value })
+          }
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+        />
+
+        <button type="submit">Login</button>
+      </form>
+
+      <p style={{ marginTop: "15px" }}>
+        Don't have account? <Link to="/register">Register</Link>
+      </p>
+    </div>
+  );
+}
+
+export default Login;
