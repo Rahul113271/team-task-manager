@@ -15,7 +15,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "https://team-task-manager-igd6.onrender.com/api/auth/login",
+        "`${import.meta.env.VITE_API_URL}/api/auth/login`",
         formData
       );
 
