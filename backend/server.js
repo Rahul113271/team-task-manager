@@ -1,5 +1,5 @@
-const expressr = require("express");
-const cors = requie("cors");
+const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
@@ -8,13 +8,24 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// Middleware
+app.use(
+  cors({
+    origin: [
+      "https://team-task-manager-1-4slg.onrender.com",
+    ],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
+// Test Route
 app.get("/", (req, res) => {
   res.send("API Running...");
 });
 
+// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/projects", require("./routes/projectRoutes"));
 app.use("/api/tasks", require("./routes/taskRoutes"));
